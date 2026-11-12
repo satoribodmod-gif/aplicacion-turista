@@ -1,0 +1,6 @@
+Ruta de sabores;Gastronómico;Puerto Varas;28000
+Circuito del lago;Lacustre;Frutillar;22000
+Sabores de Llanquihue;Gastronómico;Llanquihue;18000
+Senderos del bosque;Aventura;Puerto Octay;35000
+Recorrido cultural;Cultural;Puerto Varas;15000
+Navegación a Isla Huar;Lacustre;Calbuco;30000
