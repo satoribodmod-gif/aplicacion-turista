@@ -1,0 +1,2 @@
+Juan;Maestro;17783076-k;Revolución;369;Lo Espejo;Del Maule;EMP-002;Guía turístico
+Ana;Puebla;12345678-9;Calle Uno;10;Llanquihue;Los Lagos;EMP-001;Operador Local
