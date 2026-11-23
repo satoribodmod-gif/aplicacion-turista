@@ -19,16 +19,39 @@ public class GestorDatos {
         try (BufferedReader lector = Files.newBufferedReader(ruta)) {
             String linea;
 
-            while ((linea = lector.readLine()) != null){
-                String[] datos = linea.split(";");
+            int numeroLinea = 0;
 
-                Tour tour = new Tour(
-                        datos[0].trim(),
-                        datos[1].trim(),
-                        datos[2].trim(),
-                        Integer.parseInt(datos[3].trim())
-                );
-                tours.add(tour);
+            while ((linea = lector.readLine()) != null){
+
+                numeroLinea++;
+
+                if (linea.isBlank()) {
+                    System.out.println("Línea " + numeroLinea + " vacía; se omite.");
+                    continue;
+                }
+
+                String[] datos = linea.split(";", -1);
+
+                if (datos.length != 4) {
+                    System.out.println("Línea " + numeroLinea + " inválida: se esperaban 4 campos; se omite.");
+                    continue;
+                }
+
+                try {
+
+                    int precio = Integer.parseInt(datos[3].trim().replace(".", ""));
+
+                    Tour tour = new Tour(
+                            datos[0].trim(),
+                            datos[1].trim(),
+                            datos[2].trim(),
+                            precio
+                    );
+                    tours.add(tour);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Línea " + numeroLinea + " tiene un precio inválido; se omite.");
+                }
 
             }
         }
@@ -41,18 +64,40 @@ public class GestorDatos {
         try (BufferedReader lector = Files.newBufferedReader(ruta)) {
             String linea;
 
+            int numeroLinea = 0;
+
             while ((linea = lector.readLine()) != null) {
 
+                numeroLinea++;
+
                 if (linea.isBlank()) {
+                    System.out.println("Línea " + numeroLinea + " vacía; se omite.");
                     continue;
                 }
+
+
 
                 String[] datos = linea.split(";", -1);
 
                 if (datos.length != 9) {
-                    System.out.println("Registro ignorado: se esperaban 9 campos.");
+                    System.out.println("Línea " + numeroLinea + " inválida: se esperaban 9 campos; se omite.");
                     continue;
                 }
+
+                boolean tieneCampoVacio = false;
+
+                for (String dato : datos) {
+                    if (dato.isBlank()) {
+                        tieneCampoVacio = true;
+                        break;
+                    }
+                }
+
+                if (tieneCampoVacio) {
+                    System.out.println("Línea " + numeroLinea + " contiene campos vacíos; se omite.");
+                    continue;
+                }
+
 
                 try {
                     Direccion direccion = new Direccion(
@@ -72,7 +117,7 @@ public class GestorDatos {
                     );
                     empleados.add(empleado);
                 } catch (RutInvalidoException e) {
-                    System.out.println("Registro omitido por RUT inválido: " + e.getMessage());
+                    System.out.println("Línea " + numeroLinea + " omitida por RUT inválido: " + e.getMessage());
                 }
 
             }
